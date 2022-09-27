@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CocktailExercise.Models.CocktailModel>
+
+@{
+    ViewData["Title"] = "Cocktail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="text-center">
+        <h3 class="display-4">Búsqueda de Cócteles</h3>
+    </div>
+
+    <div class="text-center">
+        <table class="text-center" style="width: 700px;">
+            <tr>
+                <td>
+                    <div class="input-group mb-3" style="width: 300px;">
+                        <label class="input-group-text" for="inputGroupSelect01">Buscar por</label>
+                        <select class="form-select" id="inputGroupSelect">
+                            <option selected value="1">Nombre</option>
+                            <option value="2">Ingrediente</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3" style="width: 300px;">
+                        <input type="text" id="txtDescription" class="form-control" required>                        
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3" style="width: 300px;">
+                        <button type="button" class="btn btn-primary" onclick="SearchCocktails()" id="Search">Buscar</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script> 
+        function SearchCocktails() {
+            var txtDescription = $('#txtDescription').val();
+            if (txtDescription === "") {
+                document.getElementById("txtDescription").style.borderColor = "red";
+                return;
+            }
+
+            var value = $('#inputGroupSelect').val();
+            var url = '@Url.Action("ResultCoktails", "Cocktail")';     
+                window.location.href = url + '/?type=' + value + '&value=' + txtDescription;
+        }       
+    </script>
+</body>
+</html>
